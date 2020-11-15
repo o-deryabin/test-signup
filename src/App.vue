@@ -2,8 +2,8 @@
   <div id="app">
     <div class="container">
       <h1>Регистрация</h1>
-      <div class="card">
-        <div>
+      <form>
+        <div class="card">
           <h2 class="form__title">Основная информация</h2>
           <div class="form__grid form__grid--3">
             <div
@@ -18,7 +18,7 @@
                 class="form__input form__input--text"
                 type="text"
                 placeholder="Фамилия*"
-                v-model="$v.surname.$model"
+                v-model.trim="$v.surname.$model"
               />
               <div class="form__error-message" v-if="$v.surname.$error">
                 Это обязательное поле
@@ -67,7 +67,7 @@
                 class="form__input form__input--text"
                 type="text"
                 placeholder="Дaта рождения*"
-                v-model="$v.dateOfBirth.$model"
+                v-model.trim="$v.dateOfBirth.$model"
               />
               <div class="form__error-message" v-if="$v.dateOfBirth.$error">
                 Это обязательное поле
@@ -84,7 +84,7 @@
                 class="form__input form__input--text"
                 type="tel"
                 placeholder="Номер телефона*"
-                v-model="$v.tel.$model"
+                v-model.trim="$v.tel.$model"
                 maxlength="11"
                 show-word-limit
               />
@@ -107,16 +107,16 @@
               }"
             >
               <div
-                class="form__input"
-                :class="{ 'form__input-light': !customerGroup.length }"
+                class="form__input form__input--text"
+                :class="{ 'form__input--light': !customerGroup.length }"
                 @click="openMenu('form__customer-group')"
               >
                 <div v-if="customerGroup.length">
                   <span v-for="(item, index) in customerGroup" :key="index">
-                    {{ item }}
+                    {{ index + 1 }}.{{ item }}
                   </span>
                 </div>
-                <div v-else>Группа клиентов*</div>
+                <span v-else>Группа клиентов*</span>
                 <span class="form__arrow"
                   ><svg
                     width="1.3em"
@@ -162,8 +162,8 @@
               :class="{ 'form__group--success': doctor !== '' }"
             >
               <div
-                class="form__input"
-                :class="{ 'form__input-light': doctor === '' }"
+                class="form__input form__input--text"
+                :class="{ 'form__input--text-light': doctor === '' }"
                 @click="openMenu('form__doctor')"
               >
                 {{ doctor === "" ? "Лечащий врач" : doctor }}
@@ -236,9 +236,7 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card">
-        <div>
+        <div class="card">
           <h2 class="form__title">Адрес</h2>
           <div class="form__grid form__grid--2">
             <div
@@ -246,10 +244,10 @@
               :class="{ 'form__group--success': index !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Индекс"
-                v-model="index"
+                v-model.trim="index"
               />
             </div>
             <div
@@ -257,10 +255,10 @@
               :class="{ 'form__group--success': country !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Страна"
-                v-model="country"
+                v-model.trim="country"
               />
             </div>
             <div
@@ -268,10 +266,10 @@
               :class="{ 'form__group--success': region !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Область"
-                v-model="region"
+                v-model.trim="region"
               />
             </div>
             <div
@@ -282,10 +280,10 @@
               }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Город*"
-                v-model="$v.city.$model"
+                v-model.trim="$v.city.$model"
               />
               <div class="form__error-message" v-if="$v.city.$error">
                 Это обязательное поле
@@ -296,10 +294,10 @@
               :class="{ 'form__group--success': street !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Улица"
-                v-model="street"
+                v-model.trim="street"
               />
             </div>
             <div
@@ -307,17 +305,15 @@
               :class="{ 'form__group--success': home !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Дом"
-                v-model="home"
+                v-model.trim="home"
               />
             </div>
           </div>
         </div>
-      </div>
-      <div class="card">
-        <div>
+        <div class="card">
           <h2 class="form__title">Паспортные данные</h2>
           <div class="form__grid form__grid--2">
             <div
@@ -329,8 +325,10 @@
               }"
             >
               <div
-                class="form__input"
-                :class="{ 'form__input-light': $v.typeDocument.$model === '' }"
+                class="form__input form__input--text"
+                :class="{
+                  'form__input--text-light': $v.typeDocument.$model === '',
+                }"
                 @click="openMenu('form__type-document')"
               >
                 {{ typeDocument === "" ? "Тип документа" : typeDocument }}
@@ -380,10 +378,10 @@
               :class="{ 'form__group--success': series !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Серия"
-                v-model="series"
+                v-model.trim="series"
               />
             </div>
           </div>
@@ -393,10 +391,10 @@
               :class="{ 'form__group--success': number !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Номер"
-                v-model="number"
+                v-model.trim="number"
               />
             </div>
             <div
@@ -404,10 +402,10 @@
               :class="{ 'form__group--success': issuedBy !== '' }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Кем выдан"
-                v-model="issuedBy"
+                v-model.trim="issuedBy"
               />
             </div>
             <div
@@ -419,10 +417,10 @@
               }"
             >
               <input
-                class="form__input"
+                class="form__input form__input--text"
                 type="text"
                 placeholder="Дата выдачи*"
-                v-model="$v.dateOfIssue.$model"
+                v-model.trim="$v.dateOfIssue.$model"
               />
               <div class="form__error-message" v-if="$v.dateOfIssue.$error">
                 Это обязательное поле
@@ -430,17 +428,18 @@
             </div>
           </div>
         </div>
-      </div>
-      <button
-        class="btn"
-        :class="{ 'btn--disabled': $v.$invalid }"
-        :disabled="$v.$invalid"
-        @click="prepared"
-      >
-        Отправить
-      </button>
+        <button
+          type="submit"
+          class="btn"
+          :class="{ 'btn--disabled': $v.$invalid }"
+          :disabled="$v.$invalid"
+          @click.prevent="prepared"
+        >
+          Отправить
+        </button>
+      </form>
       <div class="message">
-        <div class="message__logo">
+        <div class="message__status">
           <svg
             width="2em"
             height="2em"
@@ -538,6 +537,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
+  color: rgba(0, 0, 0, 0.8);
 }
 .container {
   max-width: 1000px;
@@ -570,7 +570,7 @@ body {
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2),
     0 1px 5px 0 rgba(0, 0, 0, 0.2);
   &--disabled {
-    background-color: rgba(38, 0, 255, 0.473);
+    background-color: rgb(156, 156, 156);
     cursor: not-allowed;
   }
 }
@@ -592,7 +592,7 @@ body {
   &.active {
     left: 1rem;
   }
-  &__logo {
+  &__status {
     width: 30px;
     height: 30px;
     background-color: rgb(0, 212, 0);
@@ -615,6 +615,10 @@ body {
     display: grid;
     grid-gap: 30px;
     margin-top: 30px;
+    @media (max-width: 600px) {
+      grid-gap: 15px;
+      margin-top: 15px;
+    }
     &--3 {
       grid-template-columns: repeat(3, 1fr);
       @media (max-width: 600px) {
@@ -648,7 +652,7 @@ body {
       }
     }
     &--error {
-      .form__input {
+      .form__input--text {
         box-shadow: 0 3px 1px -1px rgba(252, 0, 0, 0.4),
           0 2px 2px 1px rgba(252, 0, 0, 0.3), 0 1px 5px 0 rgba(252, 0, 0, 0.3);
         &:hover,
@@ -662,7 +666,7 @@ body {
       }
     }
     &--success {
-      .form__input {
+      .form__input--text {
         box-shadow: 0 3px 1px -1px rgba(0, 170, 0, 0.4),
           0 2px 2px 1px rgba(0, 170, 0, 0.3), 0 1px 5px 0 rgba(0, 170, 0, 0.3);
         &:hover,
@@ -715,14 +719,13 @@ body {
       0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     width: 100%;
     transition: 0.2s;
-    max-width: 100%;
     font-size: 1.1rem;
     box-sizing: border-box;
     border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    &-light {
+    div {
+      max-width: calc(100% - 25px);
+    }
+    &--light {
       color: rgb(107, 107, 107);
     }
     &:hover {
@@ -745,26 +748,11 @@ body {
       margin: 0 10px 0 0;
     }
   }
+
   &__arrow {
     position: absolute;
     top: 15px;
     right: 10px;
-    // &::before,
-    // &::after {
-    //   content: "";
-    //   position: absolute;
-    //   width: 12px;
-    //   height: 2px;
-    //   background-color: rgb(116, 116, 116);
-    // }
-    // &::before {
-    //   transform: rotate(45deg);
-    //   left: -10px;
-    // }
-    // &::after {
-    //   transform: rotate(-45deg);
-    //   right: -10px;
-    // }
   }
   &__error-message {
     position: absolute;
