@@ -163,7 +163,7 @@
             >
               <div
                 class="form__input form__input--text"
-                :class="{ 'form__input--text-light': doctor === '' }"
+                :class="{ 'form__input--light': doctor === '' }"
                 @click="openMenu('form__doctor')"
               >
                 {{ doctor === "" ? "Лечащий врач" : doctor }}
@@ -327,7 +327,7 @@
               <div
                 class="form__input form__input--text"
                 :class="{
-                  'form__input--text-light': $v.typeDocument.$model === '',
+                  'form__input--light': $v.typeDocument.$model === '',
                 }"
                 @click="openMenu('form__type-document')"
               >
@@ -616,8 +616,8 @@ body {
     grid-gap: 30px;
     margin-top: 30px;
     @media (max-width: 600px) {
-      grid-gap: 15px;
-      margin-top: 15px;
+      grid-gap: 20px;
+      margin-top: 20px;
     }
     &--3 {
       grid-template-columns: repeat(3, 1fr);
@@ -724,6 +724,9 @@ body {
     border-radius: 4px;
     div {
       max-width: calc(100% - 25px);
+      span {
+        margin-right: 5px;
+      }
     }
     &--light {
       color: rgb(107, 107, 107);
